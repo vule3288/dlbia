@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelBiaStoreContainer" CdmEntityContainer="ModelBiaContext">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThamSoes">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.ThamSo)">
+        <MappingFragment StoreEntitySet="ThamSoes">
+          <ScalarProperty Name="MaTS" ColumnName="MaTS" />
+          <ScalarProperty Name="TenTS" ColumnName="TenTS" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DaiLis">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.DaiLi)">
+        <MappingFragment StoreEntitySet="DaiLis">
+          <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+          <ScalarProperty Name="TenDL" ColumnName="TenDL" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NgayTiepNhan" ColumnName="NgayTiepNhan" />
+          <ScalarProperty Name="TienNo" ColumnName="TienNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MatHangs">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.MatHang)">
+        <MappingFragment StoreEntitySet="MatHangs">
+          <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+          <ScalarProperty Name="TenMH" ColumnName="TenMH" />
+          <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phieu_XuatHang">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.Phieu_XuatHang)">
+        <MappingFragment StoreEntitySet="Phieu_XuatHang">
+          <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+          <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+          <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+          <ScalarProperty Name="NgayLapPhieu" ColumnName="NgayLapPhieu" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="SoTienTraLai" ColumnName="SoTienTraLai" />
+          <ScalarProperty Name="ConLai" ColumnName="ConLai" />
+          <ScalarProperty Name="DaiLiMaDL" ColumnName="DaiLiMaDL" />
+          <ScalarProperty Name="DaiLiMaDL1" ColumnName="DaiLiMaDL1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phieu_ThuTien">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.Phieu_ThuTien)">
+        <MappingFragment StoreEntitySet="Phieu_ThuTien">
+          <ScalarProperty Name="Ma_PhieuTT" ColumnName="Ma_PhieuTT" />
+          <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+          <ScalarProperty Name="NgayThuTien" ColumnName="NgayThuTien" />
+          <ScalarProperty Name="SoTienThu" ColumnName="SoTienThu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoaiDLs">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelBia.LoaiDL)">
+        <MappingFragment StoreEntitySet="LoaiDLs">
+          <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+          <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+          <ScalarProperty Name="ChuThich" ColumnName="ChuThich" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Phieu_ThuTienDaiLi" TypeName="ModelBia.Phieu_ThuTienDaiLi" StoreEntitySet="Phieu_ThuTien">
+      <EndProperty Name="Phieu_ThuTien">
+        <ScalarProperty Name="Ma_PhieuTT" ColumnName="Ma_PhieuTT" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Phieu_XuatHangMatHang" TypeName="ModelBia.Phieu_XuatHangMatHang" StoreEntitySet="Phieu_XuatHangMatHang">
+      <EndProperty Name="Phieu_XuatHang">
+        <ScalarProperty Name="MaPhieu" ColumnName="Phieu_XuatHang_MaPhieu" />
+      </EndProperty>
+      <EndProperty Name="MatHang">
+        <ScalarProperty Name="MaMH" ColumnName="MatHangs_MaMH" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DaiLiLoaiDL" TypeName="ModelBia.DaiLiLoaiDL" StoreEntitySet="DaiLis">
+      <EndProperty Name="LoaiDL">
+        <ScalarProperty Name="MaLoai" ColumnName="LoaiDLs_MaLoai" />
+      </EndProperty>
+      <EndProperty Name="DaiLi">
+        <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

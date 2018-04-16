@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelBia" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ModelBiaContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="ModelBia.User" />
+    <EntitySet Name="ThamSoes" EntityType="ModelBia.ThamSo" />
+    <EntitySet Name="DaiLis" EntityType="ModelBia.DaiLi" />
+    <EntitySet Name="MatHangs" EntityType="ModelBia.MatHang" />
+    <EntitySet Name="Phieu_XuatHang" EntityType="ModelBia.Phieu_XuatHang" />
+    <EntitySet Name="Phieu_ThuTien" EntityType="ModelBia.Phieu_ThuTien" />
+    <AssociationSet Name="Phieu_ThuTienDaiLi" Association="ModelBia.Phieu_ThuTienDaiLi">
+      <End Role="Phieu_ThuTien" EntitySet="Phieu_ThuTien" />
+      <End Role="DaiLi" EntitySet="DaiLis" />
+    </AssociationSet>
+    <AssociationSet Name="Phieu_XuatHangMatHang" Association="ModelBia.Phieu_XuatHangMatHang">
+      <End Role="Phieu_XuatHang" EntitySet="Phieu_XuatHang" />
+      <End Role="MatHang" EntitySet="MatHangs" />
+    </AssociationSet>
+    <EntitySet Name="LoaiDLs" EntityType="ModelBia.LoaiDL" />
+    <AssociationSet Name="DaiLiLoaiDL" Association="ModelBia.DaiLiLoaiDL">
+      <End Role="DaiLi" EntitySet="DaiLis" />
+      <End Role="LoaiDL" EntitySet="LoaiDLs" />
+    </AssociationSet>
+    <AssociationSet Name="DaiLiPhieu_XuatHang" Association="ModelBia.DaiLiPhieu_XuatHang">
+      <End Role="DaiLi" EntitySet="DaiLis" />
+      <End Role="Phieu_XuatHang" EntitySet="Phieu_XuatHang" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ThamSo">
+    <Key>
+      <PropertyRef Name="MaTS" />
+    </Key>
+    <Property Name="MaTS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTS" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="GhiChu" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="DaiLi">
+    <Key>
+      <PropertyRef Name="MaDL" />
+    </Key>
+    <Property Name="MaDL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenDL" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="SDT" Type="Int32" Nullable="false" />
+    <Property Name="MaLoai" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="NgayTiepNhan" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TienNo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Phieu_ThuTien" Relationship="ModelBia.Phieu_ThuTienDaiLi" FromRole="DaiLi" ToRole="Phieu_ThuTien" />
+    <NavigationProperty Name="LoaiDLs" Relationship="ModelBia.DaiLiLoaiDL" FromRole="DaiLi" ToRole="LoaiDL" />
+    <NavigationProperty Name="Phieu_XuatHang" Relationship="ModelBia.DaiLiPhieu_XuatHang" FromRole="DaiLi" ToRole="Phieu_XuatHang" />
+  </EntityType>
+  <EntityType Name="MatHang">
+    <Key>
+      <PropertyRef Name="MaMH" />
+    </Key>
+    <Property Name="MaMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenMH" Type="String" Nullable="false" Unicode="true" FixedLength="false" MaxLength="30" />
+    <Property Name="DonViTinh" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="ThanhTien" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Phieu_XuatHang" Relationship="ModelBia.Phieu_XuatHangMatHang" FromRole="MatHang" ToRole="Phieu_XuatHang" />
+  </EntityType>
+  <EntityType Name="Phieu_XuatHang">
+    <Key>
+      <PropertyRef Name="MaPhieu" />
+    </Key>
+    <Property Name="MaPhieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="MaMH" Type="Int32" Nullable="false" />
+    <Property Name="NgayLapPhieu" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TongTien" Type="Int32" Nullable="false" />
+    <Property Name="SoTienTraLai" Type="Int32" Nullable="false" />
+    <Property Name="ConLai" Type="Int32" Nullable="false" />
+    <Property Name="DaiLiMaDL" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MatHangs" Relationship="ModelBia.Phieu_XuatHangMatHang" FromRole="Phieu_XuatHang" ToRole="MatHang" />
+    <Property Name="DaiLiMaDL1" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DaiLi" Relationship="ModelBia.DaiLiPhieu_XuatHang" FromRole="Phieu_XuatHang" ToRole="DaiLi" />
+  </EntityType>
+  <EntityType Name="Phieu_ThuTien">
+    <Key>
+      <PropertyRef Name="Ma_PhieuTT" />
+    </Key>
+    <Property Name="Ma_PhieuTT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDL" Type="String" Nullable="false" />
+    <Property Name="NgayThuTien" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SoTienThu" Type="String" Nullable="false" />
+    <NavigationProperty Name="DaiLis" Relationship="ModelBia.Phieu_ThuTienDaiLi" FromRole="Phieu_ThuTien" ToRole="DaiLi" />
+  </EntityType>
+  <Association Name="Phieu_ThuTienDaiLi">
+    <End Type="ModelBia.Phieu_ThuTien" Role="Phieu_ThuTien" Multiplicity="*" />
+    <End Type="ModelBia.DaiLi" Role="DaiLi" Multiplicity="1" />
+  </Association>
+  <Association Name="Phieu_XuatHangMatHang">
+    <End Type="ModelBia.Phieu_XuatHang" Role="Phieu_XuatHang" Multiplicity="*" />
+    <End Type="ModelBia.MatHang" Role="MatHang" Multiplicity="*" />
+  </Association>
+  <EntityType Name="LoaiDL">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoai" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ChuThich" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="DaiLi" Relationship="ModelBia.DaiLiLoaiDL" FromRole="LoaiDL" ToRole="DaiLi" />
+  </EntityType>
+  <Association Name="DaiLiLoaiDL">
+    <End Type="ModelBia.DaiLi" Role="DaiLi" Multiplicity="*" />
+    <End Type="ModelBia.LoaiDL" Role="LoaiDL" Multiplicity="1" />
+  </Association>
+  <Association Name="DaiLiPhieu_XuatHang">
+    <End Type="ModelBia.DaiLi" Role="DaiLi" Multiplicity="1" />
+    <End Type="ModelBia.Phieu_XuatHang" Role="Phieu_XuatHang" Multiplicity="*" />
+  </Association>
+</Schema>

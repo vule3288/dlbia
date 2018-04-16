@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelBia.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DaiLis">
+    <Key>
+      <PropertyRef Name="MaDL" />
+    </Key>
+    <Property Name="MaDL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SDT" Type="int" Nullable="false" />
+    <Property Name="MaLoai" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="NgayTiepNhan" Type="datetime" Nullable="false" />
+    <Property Name="TienNo" Type="int" Nullable="false" />
+    <Property Name="LoaiDLs_MaLoai" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoaiDLs">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChuThich" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MatHangs">
+    <Key>
+      <PropertyRef Name="MaMH" />
+    </Key>
+    <Property Name="MaMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenMH" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="DonViTinh" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="ThanhTien" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phieu_ThuTien">
+    <Key>
+      <PropertyRef Name="Ma_PhieuTT" />
+    </Key>
+    <Property Name="Ma_PhieuTT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDL" Type="int" Nullable="false" />
+    <Property Name="NgayThuTien" Type="date" Nullable="false" />
+    <Property Name="SoTienThu" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phieu_XuatHang">
+    <Key>
+      <PropertyRef Name="MaPhieu" />
+    </Key>
+    <Property Name="MaPhieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDL" Type="int" Nullable="false" />
+    <Property Name="MaMH" Type="int" Nullable="false" />
+    <Property Name="NgayLapPhieu" Type="datetime" Nullable="false" />
+    <Property Name="TongTien" Type="int" Nullable="false" />
+    <Property Name="SoTienTraLai" Type="int" Nullable="false" />
+    <Property Name="ConLai" Type="int" Nullable="false" />
+    <Property Name="DaiLiMaDL" Type="int" Nullable="false" />
+    <Property Name="DaiLiMaDL1" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phieu_XuatHangMatHang">
+    <Key>
+      <PropertyRef Name="Phieu_XuatHang_MaPhieu" />
+      <PropertyRef Name="MatHangs_MaMH" />
+    </Key>
+    <Property Name="Phieu_XuatHang_MaPhieu" Type="int" Nullable="false" />
+    <Property Name="MatHangs_MaMH" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ThamSoes">
+    <Key>
+      <PropertyRef Name="MaTS" />
+    </Key>
+    <Property Name="MaTS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenTS" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DaiLiLoaiDL">
+    <End Role="LoaiDLs" Type="Self.LoaiDLs" Multiplicity="1" />
+    <End Role="DaiLis" Type="Self.DaiLis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiDLs">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="DaiLis">
+        <PropertyRef Name="LoaiDLs_MaLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DaiLiPhieu_XuatHang">
+    <End Role="DaiLis" Type="Self.DaiLis" Multiplicity="1" />
+    <End Role="Phieu_XuatHang" Type="Self.Phieu_XuatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DaiLis">
+        <PropertyRef Name="MaDL" />
+      </Principal>
+      <Dependent Role="Phieu_XuatHang">
+        <PropertyRef Name="DaiLiMaDL1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phieu_XuatHangMatHang_Phieu_XuatHang">
+    <End Role="Phieu_XuatHang" Type="Self.Phieu_XuatHang" Multiplicity="1" />
+    <End Role="Phieu_XuatHangMatHang" Type="Self.Phieu_XuatHangMatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phieu_XuatHang">
+        <PropertyRef Name="MaPhieu" />
+      </Principal>
+      <Dependent Role="Phieu_XuatHangMatHang">
+        <PropertyRef Name="Phieu_XuatHang_MaPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelBiaStoreContainer">
+    <EntitySet Name="DaiLis" EntityType="Self.DaiLis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiDLs" EntityType="Self.LoaiDLs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MatHangs" EntityType="Self.MatHangs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phieu_ThuTien" EntityType="Self.Phieu_ThuTien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phieu_XuatHang" EntityType="Self.Phieu_XuatHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phieu_XuatHangMatHang" EntityType="Self.Phieu_XuatHangMatHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThamSoes" EntityType="Self.ThamSoes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DaiLiLoaiDL" Association="Self.FK_DaiLiLoaiDL">
+      <End Role="LoaiDLs" EntitySet="LoaiDLs" />
+      <End Role="DaiLis" EntitySet="DaiLis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DaiLiPhieu_XuatHang" Association="Self.FK_DaiLiPhieu_XuatHang">
+      <End Role="DaiLis" EntitySet="DaiLis" />
+      <End Role="Phieu_XuatHang" EntitySet="Phieu_XuatHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phieu_XuatHangMatHang_Phieu_XuatHang" Association="Self.FK_Phieu_XuatHangMatHang_Phieu_XuatHang">
+      <End Role="Phieu_XuatHang" EntitySet="Phieu_XuatHang" />
+      <End Role="Phieu_XuatHangMatHang" EntitySet="Phieu_XuatHangMatHang" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

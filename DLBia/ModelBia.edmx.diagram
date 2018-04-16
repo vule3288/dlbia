@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31f8e9412bf94ab188f4dc6482a6eaed" Name="Diagram1" ZoomLevel="74" >
+        <EntityTypeShape EntityType="ModelBia.User" Width="1.5" PointX="0.5" PointY="0.625" />
+        <EntityTypeShape EntityType="ModelBia.ThamSo" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="ModelBia.DaiLi" Width="1.5" PointX="2.75" PointY="2.375" />
+        <EntityTypeShape EntityType="ModelBia.MatHang" Width="1.5" PointX="7" PointY="1.5" />
+        <EntityTypeShape EntityType="ModelBia.Phieu_XuatHang" Width="1.5" PointX="5" PointY="2.25" />
+        <EntityTypeShape EntityType="ModelBia.Phieu_ThuTien" Width="1.5" PointX="0.5" PointY="2.625" />
+        <AssociationConnector Association="ModelBia.Phieu_ThuTienDaiLi" />
+        <AssociationConnector Association="ModelBia.Phieu_XuatHangMatHang" />
+        <EntityTypeShape EntityType="ModelBia.LoaiDL" Width="1.5" PointX="0.5" PointY="5" />
+        <AssociationConnector Association="ModelBia.DaiLiLoaiDL" />
+        <AssociationConnector Association="ModelBia.FK_DaiLiPhieu_XuatHang" />
+        <EntityTypeShape EntityType="ModelBia.Phieu_XuatHang_MatHang" Width="1.5" PointX="7.375" PointY="4.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
